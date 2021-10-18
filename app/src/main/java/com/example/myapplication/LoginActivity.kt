@@ -34,7 +34,6 @@ class LoginActivity : AppCompatActivity() {
 
     }
 
-
     fun onStartClicked(view: View) {
         //Bloquear para que no le de varias veces al boton
         view.isEnabled = false
