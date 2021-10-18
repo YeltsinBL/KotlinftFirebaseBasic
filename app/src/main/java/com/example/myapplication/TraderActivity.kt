@@ -33,7 +33,6 @@ class TraderActivity : AppCompatActivity(), CryptosAdapterListener {
     //Variable para asignar el usuario que traemos del servidor
     private var user :User?=null
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_trader)
