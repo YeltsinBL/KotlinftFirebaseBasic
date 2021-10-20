@@ -53,13 +53,27 @@ class TraderActivity : AppCompatActivity(), CryptosAdapterListener {
         btnFab.setOnClickListener { view ->
             Snackbar.make(view, getString(R.string.generating_new_cryptos), Snackbar.LENGTH_SHORT)
                 .setAction("Info", null).show()
+            //Generar Cryptos Random
+            generateCryptoCurrenciesRandom()
+
         }
 
 
-        val mensaje = intent.getStringExtra(USERNAME_KEY)
+        //val mensaje = intent.getStringExtra(USERNAME_KEY)
         val textView = findViewById<TextView>(R.id.usernameTextView)
         textView.text = username
 
+    }
+
+    private fun generateCryptoCurrenciesRandom() {
+        for(crypto in cryptoAdapter.cryptoList){
+            //generar una cantidad aleatoria para cada crypto
+            val amount = (1..10).random()
+            crypto.available += amount
+            firestoreService.updateCrypto(crypto)
+            //sin el notifyDataSetChanged solo me actualizar el primer registro del recyclerview
+            cryptoAdapter.notifyDataSetChanged()
+        }
     }
 
     private fun loadCryptos(btnFab: FloatingActionButton) {
@@ -74,7 +88,7 @@ class TraderActivity : AppCompatActivity(), CryptosAdapterListener {
                             //Verificamos si el usuario tiene listas de cryptos
                             if(user?.cryptosList == null){
                                 //Lista mutable porque se va a modificar
-                                val userCryptoList = mutableListOf<Crypto>()
+                                //val userCryptoList = mutableListOf<Crypto>()
                                 user?.cryptosList=cryptoList
                                 user?.let { firestoreService.updateUser(it, null) }
                             }
