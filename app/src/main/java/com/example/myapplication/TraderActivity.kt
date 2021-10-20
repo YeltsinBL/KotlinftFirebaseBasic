@@ -78,7 +78,7 @@ class TraderActivity : AppCompatActivity(), CryptosAdapterListener {
 
     private fun loadCryptos(btnFab: FloatingActionButton) {
         firestoreService.getCryptos(object : Callback<List<Crypto>>{
-            override fun onSuccess(cryptoList: List<Crypto>?) {
+            override fun onSuccess(listCrypto: List<Crypto>?) {
 
                 //buscar si existe el usuario
                 username?.let { name ->
@@ -89,13 +89,13 @@ class TraderActivity : AppCompatActivity(), CryptosAdapterListener {
                             if(user?.cryptosList == null){
                                 //Lista mutable porque se va a modificar
                                 //val userCryptoList = mutableListOf<Crypto>()
-                                user?.cryptosList=cryptoList
+                                user?.cryptosList=listCrypto
                                 user?.let { firestoreService.updateUser(it, null) }
                             }
                             //Actualizamos las cryptos del usuario
                             loadUserCryptos()
                             user?.let { user ->
-                                cryptoList?.let { cryptoList ->
+                                listCrypto?.let { cryptoList ->
                                     addRealtimeDatebaseListener(user, cryptoList, btnFab)
                                 }
                             }
@@ -111,8 +111,8 @@ class TraderActivity : AppCompatActivity(), CryptosAdapterListener {
 
                 //Actualizamos la interfaz grafica
                 this@TraderActivity.runOnUiThread {
-                    if (cryptoList != null) {
-                        cryptoAdapter.cryptoList = cryptoList
+                    if (listCrypto != null) {
+                        cryptoAdapter.cryptoList = listCrypto
                         //Actualiza la vista
                         cryptoAdapter.notifyDataSetChanged()
                     }

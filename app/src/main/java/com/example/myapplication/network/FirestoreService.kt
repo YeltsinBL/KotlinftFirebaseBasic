@@ -3,7 +3,6 @@ package com.example.myapplication.network
 import com.example.myapplication.model.Crypto
 import com.example.myapplication.model.User
 import com.google.firebase.firestore.FirebaseFirestore
-import com.squareup.okhttp.Call
 
 const val  CRYPTO_COLLECTION_NAME = "cryptos"
 const val  USER_COLLECTION_NAME = "users"
